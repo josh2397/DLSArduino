@@ -16,7 +16,8 @@ switch ($board)
         arduino-cli upload -p $port --fqbn arduino:avr:leonardo .\$sketch
     }
     "micro" {
-
+	arduino-cli compile --fqbn arduino:avr:micro $sketch
+        arduino-cli upload -p $port --fqbn arduino:avr:micro .\$sketch
     }
 }
 
