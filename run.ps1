@@ -1,11 +1,28 @@
 param (
     [Alias("p")][string]
-    $port = $(Read-Host "Enter the port"),
+    $port,
     [Alias("b")][string]
     $board = $(Read-Host "Enter the board name"),
     [Alias("s")][string]
     $sketch = $(Read-Host "Enter the sketch name")
 )
+
+if ([string]::IsNullOrEmpty($port)) {
+    Write-Output $port
+    Write-Output "`nAvailable Ports:"
+    $availablePorts = (Get-WmiObject -query "SELECT * FROM Win32_PnPEntity" | Where {$_.Name -Match "COM\d+"}).name
+    foreach($availablePort in $availablePorts){
+        Write-Output "  $availablePort"
+    }
+    Write-Output ""
+    $port = $(Read-Host "Enter the port")
+}
+
+$board = $board.ToLower()
+
+if ($port.ToUpper().Contains("COM")){
+    $port = $port.ToUpper()
+}
 
 Write-Output "Board: $board, Port: $port, Sketch: $sketch"
 
