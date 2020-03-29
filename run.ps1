@@ -6,7 +6,7 @@ param (
     [Alias("s")][string]
     $sketch = $(Read-Host "Enter the sketch name")
 )
-# $null -ne $port -and $port -ne ""
+
 if ([string]::IsNullOrEmpty($port)) {
     Write-Output $port
     Write-Output "`nAvailable Ports:"
