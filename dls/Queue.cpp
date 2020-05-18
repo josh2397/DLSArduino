@@ -1,5 +1,7 @@
 #include "Queue.hpp"
 
+// TODO - Add error messaging
+
 // Constructor to initialize queue
 Queue::Queue(int size)
 {
@@ -40,7 +42,7 @@ void Queue::enqueue(int item)
     {
         // cout << "OverFlow\nProgram Terminated\n";
         // exit(EXIT_FAILURE);
-
+        
     }
 
     // cout << "Inserting " << item << '\n';
