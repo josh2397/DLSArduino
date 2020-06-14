@@ -1,10 +1,15 @@
 #include "Queue.hpp"
+#include "Instruction.hpp"
 
 class DLS {
 private:
     char CI[4] = "";
     String inputString = "";
+    char inputChar[30] = "";
+
     Queue queue;
+    Instruction instruction;
+
 public:
 
     DLS::DLS (Queue _queue) {
@@ -18,20 +23,21 @@ public:
     }
     
     void DLS::readSerial(){
-        // Serial.println("Reading Serial Date");
-        while (Serial.available() ) {
+      
+        while (Serial.available() > 0 ) {
+
             char inChar = (char)Serial.read();
-
-            inputString += inChar;
-
-
-            if (inputString[inputString.length() - 1] == '\n') {
-                Serial.print(inputString);
-                inputString = "";
-                Serial.println("End");
-                break;
+            
+            if (inChar == '\n') {
+              queue.enqueue(inputString);
+              Serial.print(queue.peek());
+              Serial.println(queue.size());
+              
+              inputString = "";
+              break;
             }
-          https://forum.arduino.cc/index.php?topic=73372.0
+            
+            inputString += inChar;
         }
     }
 };
@@ -39,21 +45,20 @@ public:
 
 void setup() {
 
-    pinMode(LED_BUILTIN, HIGH);
-    for (int i = 0; i < 3; i++) {
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(500);
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(500);
-    }
+//    pinMode(LED_BUILTIN, HIGH);
+//    for (int i = 0; i < 3; i++) {
+//        digitalWrite(LED_BUILTIN, HIGH);
+//        delay(500);
+//        digitalWrite(LED_BUILTIN, LOW);
+//        delay(500);
+//    }
 
     Serial.begin(9600);
     
     Serial.println("Arduino is running");
-
 }
 
-Queue _queue(5);
+Queue _queue(10);
 DLS dls(_queue);
 
 void loop() { 

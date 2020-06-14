@@ -1,10 +1,11 @@
+#include <WString.h>
 // define default capacity of the queue
 #define SIZE 10
 
 // Class for queue
 class Queue
 {
-    int *arr;     // array to store queue elements
+    String *arr;     // array to store queue elements
     int capacity; // maximum capacity of the queue
     int front;    // front points to front element in the queue (if any)
     int rear;     // rear points to last element in the queue
@@ -15,8 +16,8 @@ public:
     ~Queue();               // destructor
 
     void dequeue();
-    void enqueue(int x);
-    int peek();
+    void enqueue(String x);
+    String peek();
     int size();
     bool isEmpty();
     bool isFull();

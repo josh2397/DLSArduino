@@ -5,7 +5,7 @@
 // Constructor to initialize queue
 Queue::Queue(int size)
 {
-    arr = new int[size];
+    arr = new String[size];
     capacity = size;
     front = 0;
     rear = -1;
@@ -35,7 +35,7 @@ void Queue::dequeue()
 }
 
 // Utility function to add an item to the queue
-void Queue::enqueue(int item)
+void Queue::enqueue(String item)
 {
     // check for queue overflow
     if (isFull())
@@ -53,7 +53,7 @@ void Queue::enqueue(int item)
 }
 
 // Utility function to return front element in the queue
-int Queue::peek()
+String Queue::peek()
 {
     if (isEmpty())
     {

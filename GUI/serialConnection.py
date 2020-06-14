@@ -15,7 +15,7 @@ class SerialConnection:
 
         """
 
-        self.ser = serial.Serial(port=port.upper(), baudrate=56700, bytesize=serial.EIGHTBITS, parity=serial.PARITY_ODD, stopbits=serial.STOPBITS_TWO, xonxoff=False, timeout=200)
+        self.ser = serial.Serial(port=port.upper(), baudrate=9600, bytesize=serial.EIGHTBITS, parity=serial.PARITY_ODD, stopbits=serial.STOPBITS_TWO, xonxoff=False, timeout=200)
 
     def connectionTest(self):
 
@@ -33,14 +33,15 @@ class SerialConnection:
             print("Successful Serial Connection to Tiva")
 
     def sendInstruction(self, instruction):
-
+        # instruction = '!'
         """
             Send a single ascii character to inform the tiva of what task is should execute.
 
             :param: instruction - the instruction character to be sent to the tiva.
         """
-        print(f'Sending: {instruction}\n')
+        print(f'Sending: {instruction}')
         self.ser.write(instruction.encode("ascii"))
+        self.ser.write('\n'.encode("ascii"))
 
         self.ser.reset_input_buffer()
 
@@ -59,7 +60,7 @@ class SerialConnection:
 
         print(f'Sending: {value}\n')
         self.ser.write(bytes([value]))
-
+        self.ser.write('\n'.encode("ascii"))
 
         self.ser.reset_input_buffer()
         ser_bytes = self.ser.read(1)
@@ -77,7 +78,9 @@ class SerialConnection:
             :return: combined bytes for whole sample value.
         """
         ser_bytes_sample1 = self.ser.read(1)
+        print(f'byte 1: {ser_bytes_sample1}')
         ser_bytes_sample2 = self.ser.read(1)
+        print(f'byte 1: {ser_bytes_sample2}')
 
         ser_bytes_total = int.from_bytes(ser_bytes_sample1, byteorder='little', signed=False) + (int.from_bytes(ser_bytes_sample2, byteorder='little', signed=False) << 8)
 
@@ -100,6 +103,8 @@ class SerialConnection:
 
         print(f'Sending: {instruction}\n')
         self.ser.write(instruction.encode("ascii"))
+        self.ser.write('\n'.encode("ascii"))
 
         self.ser.reset_input_buffer()
         ser_bytes = self.ser.read(1)
+        print(ser_bytes)

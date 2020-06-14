@@ -16,7 +16,7 @@ class Controller:
         self.handleStop()
         self.serialConnection.sendInstruction(self.Instructions.CALIBRATE)
         
-        self.stepsPerMM = 1/(self.serialConnection.readSample() / 100)
+        self.stepsPerMM = 1 / (self.serialConnection.readSample() / 100)
         print("NUMSTEPS ",self.stepsPerMM)
 
 
